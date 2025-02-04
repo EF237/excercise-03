@@ -1,0 +1,201 @@
+---
+title: "EDA-challenge"
+author: "J.L. James-Rollins"
+format: html
+editor: visual
+---
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(tidylog)
+library(dplyr)
+```
+
+My method for uploading the dataset is as follows:
+
+```{r, message=FALSE, warning=FALSE}
+f <- "https://raw.githubusercontent.com/difiore/ada-datasets/refs/heads/main/data-wrangling.csv"
+
+d <- read_csv(f, col_names = TRUE)
+```
+
+**1.** After uploading, I created a new variable called **BSD** (body size dimorphism), representing the ratio of average male body mass to average female body mass.
+
+```{r, message=FALSE, warning=FALSE}
+d <- d %>%
+  mutate(BSD = Body_mass_male_mean/Body_mass_female_mean)
+```
+
+**2.** Next, I created a variable called **sex_ratio**, representing the ratio of the number of adult females to adult males in a typical group.
+
+```{r, message=FALSE, warning=FALSE}
+d <- d %>%
+  mutate(sex_ratio = AdultFemale/AdultMales)
+```
+
+**3.** Following that, I added a new variable called **DI** (defensibility index), which is the ratio of day range length to the diameter of the home range.
+
+```{r, message=FALSE, warning=FALSE}
+d <- d %>%
+  mutate(DI = DayLength_km/(2 * sqrt(HomeRange_km2 / pi)))
+```
+
+**4.** I plotted the relationship between *day range length* (y-axis) and *time spent moving* (x-axis) for these primate species, both overall and by family.
+
+I found that species that spent more time moving did not travel the farthest; in fact, the species that covered the greatest distances tend to spend less time moving overall.
+
+**Overall:**
+
+```{r, message=FALSE, warning=FALSE}
+p1 <- ggplot(data = d, aes(x = (Move), y = (HomeRange_km2),
+                          color = factor(Species))) +
+                            xlab("time spent moving") +
+                            ylab("day range length") +
+                            geom_point(na.rm = TRUE) +
+                            theme(legend.position = "none")
+
+print(p1)
+```
+
+For the different families, similar trends were observed, although the Cercopithecidae family shows some indication that time spent moving is positively correlated with the distance traveled.
+
+**Family:**
+
+```{r, message=FALSE, warning=FALSE}
+p2 <- ggplot(data = d, aes(x = (Move), y = (HomeRange_km2),
+                          color = factor(Species))) +
+                            xlab("time spent moving") +
+                            ylab("day range length") +
+                            geom_point(na.rm = TRUE) +
+                            facet_wrap(~Family, ncol = 4) +
+                            theme(legend.position = "none")
+
+print(p2)
+```
+
+Since the variables represent distance and time, there was no need to transform either of them.
+
+**5.** I Plotted the relationship between *day range length* (y axis) and *group size* (x axis), overall and by family.
+
+**Overall:**
+
+```{r, message=FALSE, warning=FALSE}
+p3 <- ggplot(data = d, aes(x = log(MeanGroupSize), y = (HomeRange_km2),
+                           color = factor(Species))) +
+                             xlab("log(group size)") +
+                             ylab("day range length") +
+                             geom_point(na.rm = TRUE) +
+                             theme(legend.position = "none")
+
+print(p3)
+```
+
+**Family:**
+
+```{r, message=FALSE, warning=FALSE}
+p4 <- ggplot(data = d, aes(x = log(MeanGroupSize), y = (HomeRange_km2),
+                           color = factor(Species))) +
+                             xlab("log(group size)") +
+                             ylab("day range length") +
+                             geom_point(na.rm = TRUE) +
+                             facet_wrap(~Family, ncol = 4) +
+                             theme(legend.position = "none")
+
+print(p4)
+```
+
+Through the analysis, we can suggest that larger groups tend to travel farther overall, with the dominant family in this trend being Cercopithecidae.
+
+Additionally, transforming the "group size" variable is both possible and recommended to enhance the interpretation of the data.
+
+**6.** I plotted the relationship between *canine size dimorphism* (y axis) and *body size dimorphism* (x axis) overall and by family.
+
+**Overall:**
+
+```{r, message=FALSE, warning=FALSE}
+p5 <- ggplot(data = d, aes(x = log(BSD), y = log(Canine_Dimorphism),
+               color = factor(Species))) +
+  xlab("log(body size dimorphism)") +
+  ylab("log(canine size dimorphism)") +
+  geom_point(na.rm = TRUE) +
+  theme(legend.position = "none")
+
+print(p5)
+```
+
+**Family:**
+
+```{r, message=FALSE, warning=FALSE}
+p6 <- ggplot(data = d, aes(x = log(BSD), y = log(Canine_Dimorphism),
+               color = factor(Species))) +
+  xlab("log(body size dimorphism)") +
+  ylab("log(canine size dimorphism)") +
+  geom_point(na.rm = TRUE) +
+  facet_wrap(~Family, ncol = 4) +
+  theme(legend.position = "none")
+
+print(p6)
+```
+
+The graphs reveal that taxa with greater size dimorphism also exhibit greater canine dimorphism.
+
+**7.** I created a variable called diet_strategy, which is labeled as “frugivore” if fruits make up more than 50% of the diet, “folivore” if leaves make up more than 50%, and “omnivore” if neither of these conditions is true and diet data is available.
+
+```{r, message=FALSE, warning=FALSE}
+d <- d %>%
+  mutate(diet_strategy = case_when(
+    Fruit >= 50 ~ "frugivore", 
+    Leaves >= 50 ~ "folivore",
+    Fruit < 50 & Leaves < 50 ~ "omnivore",  
+    TRUE ~ NA
+    ))
+```
+
+Before creating the boxplot, I first removed the NA values relating to the diet_strategy from the dataset.
+
+```{r, message=FALSE, warning=FALSE}
+d2 <- d %>%
+  drop_na(diet_strategy)
+
+```
+
+Then created boxplots of group size for species with different dietary strategies.
+
+```{r, message=FALSE, warning=FALSE}
+
+p7 <- ggplot(data = d2, aes(x = diet_strategy, y = log(MeanGroupSize))) +
+               geom_boxplot(na.rm = TRUE) +
+               theme(axis.text.x = element_text(angle = 90)) +
+               xlab("Diet Strategy") +
+               ylab("Group Size")
+
+print(p7)
+```
+
+The boxplot suggests that frugivores live in larger groups than folivores.
+
+**8.** In one line of code, using {dplyr} verbs and the forward pipe (\|\> or %\>%) operator, do the following:
+
+```         
+Add a variable, Binomial to the data frame d, which is a concatenation of the Genus and Species variables…
+Trim the data frame to only include the variables Binomial, Family, Brain_size_species_mean, and Body_mass_male_mean…
+Group these variables by Family…
+Calculate the average value for Brain_Size_Species_Mean and Body_mass_male_mean per Family (remember, you may need to specify na.rm = TRUE)…
+Arrange by increasing average brain size…
+And print the output to the console
+```
+
+```{r, message=FALSE, warning=FALSE}
+d3 <- d %>%
+  mutate(Binomial = paste(Genus, Species, sep = " ")) %>%
+  select(Binomial, Family, Brain_Size_Species_Mean, Body_mass_male_mean) %>%
+  group_by(Family) %>%
+  summarise(
+    Average_Brain_Size = mean(Brain_Size_Species_Mean, na.rm = TRUE),
+    Average_Body_Mass = mean(Body_mass_male_mean, na.rm = TRUE)
+  ) %>%
+  arrange(Average_Brain_Size)
+
+print(d3)
+```
