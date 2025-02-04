@@ -130,7 +130,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">DI =</span> DayLength_km<span class="sc">/</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">sqrt</span>(HomeRange_km2 <span class="sc">/</span> pi)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>4.</strong> I plotted the relationship between <em>day range length</em> (y-axis) and <em>time spent moving</em> (x-axis) for these primate species, both overall and by family.</p>
+<p><strong>4.</strong> I plotted the relationship between <strong>day range length (y-axis)</strong> and <strong>time spent moving (x-axis)</strong> for these primate species, both overall and by family.</p>
 <p>I found that species that spent more time moving did not travel the farthest; in fact, the species that covered the greatest distances tend to spend less time moving overall.</p>
 <p><strong>Overall:</strong></p>
 <div class="cell">
@@ -171,7 +171,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Since the variables represent distance and time, there was no need to transform either of them.</p>
-<p><strong>5.</strong> I Plotted the relationship between <em>day range length</em> (y axis) and <em>group size</em> (x axis), overall and by family.</p>
+<p><strong>5.</strong> I Plotted the relationship between <strong>day range length (y axis)</strong> and <strong>group size (x axis)</strong>, overall and by family.</p>
 <p><strong>Overall:</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> d, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(MeanGroupSize), <span class="at">y =</span> (HomeRange_km2),</span>
@@ -211,7 +211,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Through the analysis, we can suggest that larger groups tend to travel farther overall, with the dominant family in this trend being Cercopithecidae.</p>
 <p>Additionally, transforming the “group size” variable is both possible and recommended to enhance the interpretation of the data.</p>
-<p><strong>6.</strong> I plotted the relationship between <em>canine size dimorphism</em> (y axis) and <em>body size dimorphism</em> (x axis) overall and by family.</p>
+<p><strong>6.</strong> I plotted the relationship between <strong>canine size dimorphism (y axis)</strong> and <strong>body size dimorphism (x axis)</strong> overall and by family.</p>
 <p><strong>Overall:</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>p5 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> d, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(BSD), <span class="at">y =</span> <span class="fu">log</span>(Canine_Dimorphism),</span>
@@ -250,7 +250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>The graphs reveal that taxa with greater size dimorphism also exhibit greater canine dimorphism.</p>
-<p><strong>7.</strong> I created a variable called diet_strategy, which is labeled as “frugivore” if fruits make up more than 50% of the diet, “folivore” if leaves make up more than 50%, and “omnivore” if neither of these conditions is true and diet data is available.</p>
+<p><strong>7.</strong> I created a variable called <strong>diet_strategy</strong>, which is labeled as “<strong>frugivore</strong>” if fruits make up more than 50% of the diet, “<strong>folivore</strong>” if leaves make up more than 50%, and “<strong>omnivore</strong>” if neither of these conditions is true and diet data is available.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diet_strategy =</span> <span class="fu">case_when</span>(</span>
@@ -265,7 +265,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(diet_strategy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Then created boxplots of group size for species with different dietary strategies.</p>
+<p>Then created boxplots of <strong>group size for species with different dietary strategies</strong>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>p7 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> d2, <span class="fu">aes</span>(<span class="at">x =</span> diet_strategy, <span class="at">y =</span> <span class="fu">log</span>(MeanGroupSize))) <span class="sc">+</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>               <span class="fu">geom_boxplot</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
@@ -284,24 +284,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The boxplot suggests that frugivores live in larger groups than folivores.</p>
 <p><strong>8.</strong> In one line of code, using {dplyr} verbs and the forward pipe (|&gt; or %&gt;%) operator, do the following:</p>
-<pre><code>Add a variable, Binomial to the data frame d, which is a concatenation of the Genus and Species variables…
-Trim the data frame to only include the variables Binomial, Family, Brain_size_species_mean, and Body_mass_male_mean…
-Group these variables by Family…
-Calculate the average value for Brain_Size_Species_Mean and Body_mass_male_mean per Family (remember, you may need to specify na.rm = TRUE)…
-Arrange by increasing average brain size…
-And print the output to the console</code></pre>
+<p>-Add a variable, Binomial to the data frame d, which is a concatenation of the Genus and Species variables…</p>
+<p>-Trim the data frame to only include the variables Binomial, Family, Brain_size_species_mean, and Body_mass_male_mean…</p>
+<p>-Group these variables by Family…</p>
+<p>-Calculate the average value for Brain_Size_Species_Mean and Body_mass_male_mean per Family (remember, you may need to specify na.rm = TRUE)…</p>
+<p>-Arrange by increasing average brain size…</p>
+<p>-And print the output to the console</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Binomial =</span> <span class="fu">paste</span>(Genus, Species, <span class="at">sep =</span> <span class="st">" "</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Binomial, Family, Brain_Size_Species_Mean, Body_mass_male_mean) <span class="sc">%&gt;%</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Family) <span class="sc">%&gt;%</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Average_Brain_Size =</span> <span class="fu">mean</span>(Brain_Size_Species_Mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Average_Body_Mass =</span> <span class="fu">mean</span>(Body_mass_male_mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Average_Brain_Size)</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(d3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Binomial =</span> <span class="fu">paste</span>(Genus, Species, <span class="at">sep =</span> <span class="st">" "</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Binomial, Family, Brain_Size_Species_Mean, Body_mass_male_mean) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Family) <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Average_Brain_Size =</span> <span class="fu">mean</span>(Brain_Size_Species_Mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Average_Body_Mass =</span> <span class="fu">mean</span>(Body_mass_male_mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Average_Brain_Size)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(d3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 14 × 3
    Family          Average_Brain_Size Average_Body_Mass

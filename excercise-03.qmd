@@ -41,7 +41,7 @@ d <- d %>%
   mutate(DI = DayLength_km/(2 * sqrt(HomeRange_km2 / pi)))
 ```
 
-**4.** I plotted the relationship between *day range length* (y-axis) and *time spent moving* (x-axis) for these primate species, both overall and by family.
+**4.** I plotted the relationship between **day range length (y-axis)** and **time spent moving (x-axis)** for these primate species, both overall and by family.
 
 I found that species that spent more time moving did not travel the farthest; in fact, the species that covered the greatest distances tend to spend less time moving overall.
 
@@ -76,7 +76,7 @@ print(p2)
 
 Since the variables represent distance and time, there was no need to transform either of them.
 
-**5.** I Plotted the relationship between *day range length* (y axis) and *group size* (x axis), overall and by family.
+**5.** I Plotted the relationship between **day range length (y axis)** and **group size (x axis)**, overall and by family.
 
 **Overall:**
 
@@ -109,7 +109,7 @@ Through the analysis, we can suggest that larger groups tend to travel farther o
 
 Additionally, transforming the "group size" variable is both possible and recommended to enhance the interpretation of the data.
 
-**6.** I plotted the relationship between *canine size dimorphism* (y axis) and *body size dimorphism* (x axis) overall and by family.
+**6.** I plotted the relationship between **canine size dimorphism (y axis)** and **body size dimorphism (x axis)** overall and by family.
 
 **Overall:**
 
@@ -140,7 +140,7 @@ print(p6)
 
 The graphs reveal that taxa with greater size dimorphism also exhibit greater canine dimorphism.
 
-**7.** I created a variable called diet_strategy, which is labeled as “frugivore” if fruits make up more than 50% of the diet, “folivore” if leaves make up more than 50%, and “omnivore” if neither of these conditions is true and diet data is available.
+**7.** I created a variable called **diet_strategy**, which is labeled as “**frugivore**” if fruits make up more than 50% of the diet, “**folivore**” if leaves make up more than 50%, and “**omnivore**” if neither of these conditions is true and diet data is available.
 
 ```{r, message=FALSE, warning=FALSE}
 d <- d %>%
@@ -160,7 +160,7 @@ d2 <- d %>%
 
 ```
 
-Then created boxplots of group size for species with different dietary strategies.
+Then created boxplots of **group size for species with different dietary strategies**.
 
 ```{r, message=FALSE, warning=FALSE}
 
@@ -177,14 +177,17 @@ The boxplot suggests that frugivores live in larger groups than folivores.
 
 **8.** In one line of code, using {dplyr} verbs and the forward pipe (\|\> or %\>%) operator, do the following:
 
-```         
-Add a variable, Binomial to the data frame d, which is a concatenation of the Genus and Species variables…
-Trim the data frame to only include the variables Binomial, Family, Brain_size_species_mean, and Body_mass_male_mean…
-Group these variables by Family…
-Calculate the average value for Brain_Size_Species_Mean and Body_mass_male_mean per Family (remember, you may need to specify na.rm = TRUE)…
-Arrange by increasing average brain size…
-And print the output to the console
-```
+-Add a variable, Binomial to the data frame d, which is a concatenation of the Genus and Species variables…
+
+-Trim the data frame to only include the variables Binomial, Family, Brain_size_species_mean, and Body_mass_male_mean…
+
+-Group these variables by Family…
+
+-Calculate the average value for Brain_Size_Species_Mean and Body_mass_male_mean per Family (remember, you may need to specify na.rm = TRUE)…
+
+-Arrange by increasing average brain size…
+
+-And print the output to the console
 
 ```{r, message=FALSE, warning=FALSE}
 d3 <- d %>%
